@@ -1,20 +1,31 @@
-import './App.css'
-import { puppyList } from './data.js'
-import { useState } from 'react'
+import "./App.css";
+import { puppyList } from "./data.js";
+import { useState } from "react";
 
 function App() {
+	const [puppies, setPuppies] = useState(puppyList);
+	const [featPupId, setFeatPupId] = useState(null);
+	const featuredPup = puppies.find((pup) => pup.id === featPupId);
 
-    const [puppies, setPuppies] = useState(puppyList);
-    console.log(puppies)
-    return (
-        <div className='App'>
-            {
-                puppies.map((puppy) => {
-                    return <p key={puppy.id}>{puppy.name}</p>
-                    })
-            }
-        </div>
-    )
+	return (
+		<div className="App">
+			{puppies.map((puppy) => {
+				return (
+					<p onClick={() => {setFeatPupId(puppy.id);}} key={puppy.id}>{puppy.name}
+					</p>
+				);
+			})}
+			{featPupId && (
+				<div>
+					<h2>{featuredPup.name}</h2>
+					<ul>
+						<li>Age: {featuredPup.age}</li>
+						<li>Email: {featuredPup.email}</li>
+					</ul>
+				</div>
+			)}
+		</div>
+	);
 }
 
-export default App
+export default App;
